@@ -2,7 +2,6 @@ danbai:
   dblogin:
     ifpass: true #操作令牌开关
     passwordManagement: "DanBai" #令牌
-    serviceURL: "http://127.0.0.1:8085"
 server:
   port: 8085
 #数据源配置
