@@ -9,3 +9,35 @@
 # 搭建服务端
 
 git项目到本地 修改项目application配置 sql建表 构建项目 运行
+
+# 客服端
+
+## sping项目可直接添加依赖
+```
+<dependency>
+  <groupId>cn.p00q.dblogin</groupId>
+  <artifactId>client</artifactId>
+  <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+在application配置中添加
+```
+danbai:
+  dblogin:
+    passwordManagement: "DanBai" #没用口令可不要
+    serviceURL: "http://127.0.0.1:8085"
+```
+在需要使用的地方注入 如:
+```
+    @Autowired
+    DBlogin dBlogin;
+```
+
+## 其他项目 使用http接入
+
+- /login 登陆
+- /logout 退出登陆
+- /tokenTime token过期时间
+- /register 注册
+- /username token获取用户名
+- /delete 删除用户

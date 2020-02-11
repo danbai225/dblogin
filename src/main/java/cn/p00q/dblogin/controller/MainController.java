@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
     @Autowired
     UserServiceImpl userService;
-
     @RequestMapping("/login")
     public Resources login(User user) {
         if (StringUtils.hasLength(user.getUsername()) & StringUtils.hasLength(user.getPassword())) {
