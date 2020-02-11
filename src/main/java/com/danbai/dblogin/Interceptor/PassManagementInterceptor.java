@@ -19,12 +19,14 @@ public class PassManagementInterceptor implements HandlerInterceptor {
     Boolean ifPss;
     @Value("${danbai.dblogin.passwordManagement}")
     String passwordManagement;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(ifPss){
+        if (ifPss) {
             String qpasswordManagement = request.getParameter("passwordManagement");
-            if(StringUtils.hasLength(qpasswordManagement)){
-                if(qpasswordManagement.equals(passwordManagement)){
+            if (StringUtils.hasLength(qpasswordManagement)) {
+                //验证令牌
+                if (qpasswordManagement.equals(passwordManagement)) {
                     return true;
                 }
             }

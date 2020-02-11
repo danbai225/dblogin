@@ -11,15 +11,17 @@ public class StringUtils {
 
     /**
      * md5加密
+     *
      * @param str 加密的字符串
      * @return MD5
      */
     public static String md5(String str) {
-        return DigestUtils.md5DigestAsHex((md5str+str).getBytes());
+        return DigestUtils.md5DigestAsHex((md5str + str).getBytes());
     }
 
     /**
      * 字符串空长度判断
+     *
      * @param str
      * @return
      */

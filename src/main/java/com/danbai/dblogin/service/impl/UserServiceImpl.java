@@ -77,6 +77,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(String username) {
-        userMapper.delete(new User(username,null));
+        userMapper.delete(new User(username, null));
     }
 }

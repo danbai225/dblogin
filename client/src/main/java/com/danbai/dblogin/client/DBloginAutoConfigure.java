@@ -22,8 +22,8 @@ public class DBloginAutoConfigure {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "danbai.dblogin",value = "serviceURL")
-    DBlogin exampleService (){
-        return  new DBlogin(dblogin.getPasswordManagement(),dblogin.getServiceURL());
+    @ConditionalOnProperty(prefix = "danbai.dblogin", value = "serviceURL")
+    DBlogin exampleService() {
+        return new DBlogin(dblogin.getPasswordManagement(), dblogin.getServiceURL());
     }
 }

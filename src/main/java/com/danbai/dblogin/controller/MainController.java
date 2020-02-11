@@ -21,6 +21,7 @@ public class MainController {
     UserServiceImpl userService;
     @Autowired
     DBlogin dBlogin;
+
     @RequestMapping("/login")
     public Resources login(User user) {
         if (StringUtils.hasLength(user.getUsername()) & StringUtils.hasLength(user.getPassword())) {
@@ -31,7 +32,6 @@ public class MainController {
 
     @RequestMapping("/logout")
     public Resources logout(String token) {
-        System.out.println(dBlogin.login("danbai","danbai225"));
         if (StringUtils.hasLength(token)) {
             userService.logout(token);
             return Resources.Ok();
@@ -63,10 +63,11 @@ public class MainController {
         }
         return Resources.Err().setMsg("token有误");
     }
+
     @RequestMapping("/delete")
     public Resources deleteUser(String username) {
         if (StringUtils.hasLength(username)) {
-             userService.delete(username);
+            userService.delete(username);
         }
         return Resources.Ok();
     }

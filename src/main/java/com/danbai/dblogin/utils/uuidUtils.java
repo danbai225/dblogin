@@ -9,13 +9,14 @@ import java.util.UUID;
  */
 public class uuidUtils {
     /**
-     *获取uuid
+     * 获取uuid
+     *
      * @param num 长度
      * @return uuid
      */
     public static String[] getUUID(int num) {
 
-        if (num <= 0){
+        if (num <= 0) {
             return null;
         }
         String[] uuidArr = new String[num];
@@ -29,6 +30,7 @@ public class uuidUtils {
 
     /**
      * 得到32位的uuid
+     *
      * @return 32位的uuid
      */
     public static String getUUID32() {
