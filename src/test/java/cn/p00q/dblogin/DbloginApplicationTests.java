@@ -1,4 +1,4 @@
-package com.danbai.dblogin;
+package cn.p00q.dblogin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
