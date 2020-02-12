@@ -1,7 +1,6 @@
 package cn.p00q.dblogin.controller;
 
 
-import cn.p00q.dblogin.client.DBlogin;
 import cn.p00q.dblogin.entity.Resources;
 import cn.p00q.dblogin.entity.User;
 import cn.p00q.dblogin.service.impl.UserServiceImpl;
