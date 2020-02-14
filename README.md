@@ -17,7 +17,7 @@ git项目到本地 修改项目application配置 sql建表 构建项目 运行
 <dependency>
   <groupId>cn.p00q.dblogin</groupId>
   <artifactId>client</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
 </dependency>
 ```
 在application配置中添加
