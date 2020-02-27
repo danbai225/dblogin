@@ -41,3 +41,4 @@ danbai:
 - /register 注册
 - /username token获取用户名
 - /delete 删除用户
+- /user 查询用户是否存在

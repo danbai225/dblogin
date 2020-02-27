@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>cn.p00q</groupId>
 	<artifactId>dblogin</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<name>dblogin</name>
 	<description>dblogin</description>
 	<packaging>jar</packaging>
@@ -70,11 +70,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
-		<dependency>
-			<groupId>cn.p00q.dblogin</groupId>
-			<artifactId>client</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 	<build>

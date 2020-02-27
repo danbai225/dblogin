@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.p00q.dblogin</groupId>
     <artifactId>client</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <name>dblogin-client</name>
     <packaging>jar</packaging>
     <url>https://github.com/danbai225/dblogin/tree/master/client</url>

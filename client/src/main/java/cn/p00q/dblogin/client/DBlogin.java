@@ -164,7 +164,21 @@ public class DBlogin {
             e.printStackTrace();
         }
     }
-
+    public boolean user(String username){
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(serviceURL + "/user?passwordManagement=" + passwordManagement + "&username=" + username).build();
+        try {
+            Response response = client.newCall(request).execute();
+            JSONObject jsonObject = JSON.parseObject(response.body().string());
+            String msg = jsonObject.getString("msg");
+            if (msg.equals(OK)) {
+                return jsonObject.getBoolean("data");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
     public String getPasswordManagement() {
         return passwordManagement;
     }

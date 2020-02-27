@@ -66,5 +66,16 @@ public class MainController {
         }
         return Resources.Ok();
     }
-
+    @RequestMapping("/user")
+    public Resources user(String username) {
+        if (StringUtils.hasLength(username)) {
+            User user = userService.getUser(username);
+            if(user==null){
+                return Resources.Ok().setData(false);
+            }else {
+                return Resources.Ok().setData(true);
+            }
+        }
+        return Resources.Ok();
+    }
 }
