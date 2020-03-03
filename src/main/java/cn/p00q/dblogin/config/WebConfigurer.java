@@ -1,6 +1,6 @@
 package cn.p00q.dblogin.config;
 
-import cn.p00q.dblogin.Interceptor.PassManagementInterceptor;
+import cn.p00q.dblogin.interceptor.PassManagementInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

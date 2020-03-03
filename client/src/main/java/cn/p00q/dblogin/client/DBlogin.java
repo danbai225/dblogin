@@ -181,7 +181,7 @@ public class DBlogin {
     }
     public boolean newPass(User user,String newPass){
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(serviceURL + "/newPss?passwordManagement=" + passwordManagement + "&username=" +user.getUsername()+"&password="+user.getPassword()+"&newPass="+newPass).build();
+        Request request = new Request.Builder().url(serviceURL + "/newPass?passwordManagement=" + passwordManagement + "&username=" +user.getUsername()+"&password="+user.getPassword()+"&newPass="+newPass).build();
         try {
             Response response = client.newCall(request).execute();
             JSONObject jsonObject = JSON.parseObject(response.body().string());

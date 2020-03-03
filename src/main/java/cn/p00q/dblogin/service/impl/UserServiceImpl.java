@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -54,13 +53,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout(String token) {
-        redisTemplate.delete(userName(token));
+        redisTemplate.delete(userName(token).getData());
         redisTemplate.delete(token);
     }
 
     @Override
     public void tokenTime(String token, long time) {
-        redisTemplate.expire(userName(token), time, TimeUnit.SECONDS);
+        redisTemplate.expire(userName(token).getData(), time, TimeUnit.SECONDS);
         redisTemplate.expire(token, time, TimeUnit.SECONDS);
     }
 

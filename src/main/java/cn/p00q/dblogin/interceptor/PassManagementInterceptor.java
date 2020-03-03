@@ -1,4 +1,4 @@
-package cn.p00q.dblogin.Interceptor;
+package cn.p00q.dblogin.interceptor;
 
 
 import cn.p00q.dblogin.utils.StringUtils;

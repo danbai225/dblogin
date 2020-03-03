@@ -68,5 +68,6 @@ public interface UserService {
      * @return
      */
     Resources newPass(User user,String newPass);
+
 }
 
