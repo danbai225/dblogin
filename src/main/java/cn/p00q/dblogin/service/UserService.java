@@ -61,5 +61,12 @@ public interface UserService {
      */
     void delete(String username);
 
+    /**
+     * 修改密码
+     * @param user
+     * @param newPass
+     * @return
+     */
+    Resources newPass(User user,String newPass);
 }
 

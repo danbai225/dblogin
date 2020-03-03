@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -27,10 +28,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public Resources login(User user) {
         User user1 = getUser(user.getUsername());
-        //用户名存在
+        //用户是否存在
         if (user1 != null) {
             if (StringUtils.md5(user.getPassword()).equals(user1.getPassword())) {
+
+                String token;
+                if (redisTemplate.hasKey(user.getUsername())) {
+                    token = (String) redisTemplate.opsForValue().get(user.getUsername());
+                    Resources.Ok().setData(token);
+                }
                 String uuid = uuidUtils.getUUID32();
+                redisTemplate.opsForValue().set(user.getUsername(), uuid, 1, TimeUnit.DAYS);
                 redisTemplate.opsForValue().set(uuid, user.getUsername(), 1, TimeUnit.DAYS);
                 return Resources.Ok().setMsg("登陆成功").setData(uuid);
             }
@@ -46,11 +54,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout(String token) {
+        redisTemplate.delete(userName(token));
         redisTemplate.delete(token);
     }
 
     @Override
     public void tokenTime(String token, long time) {
+        redisTemplate.expire(userName(token), time, TimeUnit.SECONDS);
         redisTemplate.expire(token, time, TimeUnit.SECONDS);
     }
 
@@ -77,6 +87,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(String username) {
-        userMapper.delete(new User(username, null));
+        if (userMapper.delete(new User(username, null)) > 0) {
+            if(redisTemplate.hasKey(username)){
+                redisTemplate.delete(redisTemplate.opsForValue().get(username));
+                redisTemplate.delete(username);
+            }
+        }
+    }
+
+    @Override
+    public Resources newPass(User user, String newPass) {
+        user.setPassword(StringUtils.md5(user.getPassword()));
+        User user1 = userMapper.selectOne(user);
+        if (user1 != null) {
+            user1.setPassword(StringUtils.md5(newPass));
+            if (userMapper.updateByPrimaryKey(user1) > 0) {
+                logout(user1.getUsername());
+                return Resources.Ok();
+            }
+        }
+        return Resources.Err().setMsg("账号密码错误");
     }
 }

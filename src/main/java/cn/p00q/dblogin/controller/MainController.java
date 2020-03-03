@@ -78,4 +78,11 @@ public class MainController {
         }
         return Resources.Ok();
     }
+    @RequestMapping("/newPass")
+    public Resources newPass(User user,String newPass) {
+        if (StringUtils.hasLength(user.getUsername()) & StringUtils.hasLength(user.getPassword())&StringUtils.hasLength(newPass)) {
+        return userService.newPass(user,newPass);
+    }
+        return Resources.Err().setMsg("参数不足");
+    }
 }

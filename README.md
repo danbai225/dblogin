@@ -42,3 +42,4 @@ danbai:
 - /username token获取用户名
 - /delete 删除用户
 - /user 查询用户是否存在
+- /newPass 修改密码

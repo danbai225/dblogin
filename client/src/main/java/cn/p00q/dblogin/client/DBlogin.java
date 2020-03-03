@@ -179,6 +179,21 @@ public class DBlogin {
         }
         return true;
     }
+    public boolean newPass(User user,String newPass){
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(serviceURL + "/newPss?passwordManagement=" + passwordManagement + "&username=" +user.getUsername()+"&password="+user.getPassword()+"&newPass="+newPass).build();
+        try {
+            Response response = client.newCall(request).execute();
+            JSONObject jsonObject = JSON.parseObject(response.body().string());
+            String msg = jsonObject.getString("msg");
+            if (msg.equals(OK)) {
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public String getPasswordManagement() {
         return passwordManagement;
     }
