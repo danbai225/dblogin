@@ -46,6 +46,7 @@ public class DBlogin {
             Response response = client.newCall(request).execute();
             JSONObject jsonObject = JSON.parseObject(response.body().string());
             String msg = jsonObject.getString("msg");
+            response.body().close();
             if (msg.equals(OKLOGIN)) {
                 return jsonObject.getString("data");
             }
@@ -74,7 +75,7 @@ public class DBlogin {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(serviceURL + "/logout?passwordManagement=" + passwordManagement + "&token=" + token).build();
         try {
-            client.newCall(request).execute();
+            client.newCall(request).execute().body().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,7 +91,7 @@ public class DBlogin {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(serviceURL + "/tokenTime?passwordManagement=" + passwordManagement + "&token=" + token + "&time=" + time).build();
         try {
-            client.newCall(request).execute();
+            client.newCall(request).execute().body().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,6 +110,7 @@ public class DBlogin {
         try {
             Response response = client.newCall(request).execute();
             JSONObject jsonObject = JSON.parseObject(response.body().string());
+            response.body().close();
             return jsonObject.getString("msg");
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,8 +140,8 @@ public class DBlogin {
         try {
             Response response = client.newCall(request).execute();
             JSONObject jsonObject = JSON.parseObject(response.body().string());
-
             String msg = jsonObject.getString("msg");
+            response.body().close();
             if (msg.equals(OK)) {
                 return jsonObject.getString("data");
             }
@@ -159,7 +161,7 @@ public class DBlogin {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(serviceURL + "/delete?passwordManagement=" + passwordManagement + "&username=" + username).build();
         try {
-            client.newCall(request).execute();
+            client.newCall(request).execute().body().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -171,7 +173,9 @@ public class DBlogin {
             Response response = client.newCall(request).execute();
             JSONObject jsonObject = JSON.parseObject(response.body().string());
             String msg = jsonObject.getString("msg");
+            response.body().close();
             if (msg.equals(OK)) {
+
                 return jsonObject.getBoolean("data");
             }
         } catch (IOException e) {
@@ -186,6 +190,7 @@ public class DBlogin {
             Response response = client.newCall(request).execute();
             JSONObject jsonObject = JSON.parseObject(response.body().string());
             String msg = jsonObject.getString("msg");
+            response.body().close();
             if (msg.equals(OK)) {
                 return true;
             }

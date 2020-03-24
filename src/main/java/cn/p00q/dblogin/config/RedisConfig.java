@@ -31,32 +31,25 @@ public class RedisConfig extends CachingConfigurerSupport {
      * @return
      */
     @Bean
-    @ConditionalOnMissingBean(name = "redisTemplate")
-    public RedisTemplate<Object, Object> getRedisTemplate(
-            final RedisConnectionFactory connectionFactory
-    ) {
-        RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(connectionFactory);
-        // 配置默认的序列化器
-        redisTemplate.setDefaultSerializer(getGenericJackson2JsonRedisSerializer());
-        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        // 设置 Key 的默认序列化机制
-        redisTemplate.setKeySerializer(stringRedisSerializer);
-        redisTemplate.setHashKeySerializer(stringRedisSerializer);
-        return redisTemplate;
+    public RedisTemplate redisTemplate(RedisConnectionFactory factory) {
+        // 创建一个模板类
+        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+        // 将刚才的redis连接工厂设置到模板类中
+        template.setConnectionFactory(factory);
+        // 设置key的序列化器
+        template.setKeySerializer(new StringRedisSerializer());
+        // 设置value的序列化器
+        //使用Jackson 2，将对象序列化为JSON
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        //json转对象类，不设置默认的会将json转成hashmap
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+
+        return template;
     }
 
-    @Bean
-    public CacheManager cacheManager(final RedisConnectionFactory redisConnectionFactory) {
-        RedisCacheManager.RedisCacheManagerBuilder builder
-                = RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(redisConnectionFactory);
-
-        return builder.build();
-    }
-
-    @Bean(name = "springSessionDefaultRedisSerializer")
-    public GenericJackson2JsonRedisSerializer getGenericJackson2JsonRedisSerializer() {
-        return new GenericJackson2JsonRedisSerializer();
-    }
 
 }

@@ -35,11 +35,12 @@ public class UserServiceImpl implements UserService {
                 if (redisTemplate.hasKey(user.getUsername())) {
                     token = (String) redisTemplate.opsForValue().get(user.getUsername());
                     Resources.Ok().setData(token);
+                }else {
+                    token = uuidUtils.getUUID32();
+                    redisTemplate.opsForValue().set(user.getUsername(), token, 1, TimeUnit.DAYS);
+                    redisTemplate.opsForValue().set(token, user.getUsername(), 1, TimeUnit.DAYS);
                 }
-                String uuid = uuidUtils.getUUID32();
-                redisTemplate.opsForValue().set(user.getUsername(), uuid, 1, TimeUnit.DAYS);
-                redisTemplate.opsForValue().set(uuid, user.getUsername(), 1, TimeUnit.DAYS);
-                return Resources.Ok().setMsg("登陆成功").setData(uuid);
+                return Resources.Ok().setMsg("登陆成功").setData(token);
             }
             return Resources.Err().setMsg("账号或密码错误");
         }
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(String username) {
         if (userMapper.delete(new User(username, null)) > 0) {
-            if(redisTemplate.hasKey(username)){
+            if (redisTemplate.hasKey(username)) {
                 redisTemplate.delete(redisTemplate.opsForValue().get(username));
                 redisTemplate.delete(username);
             }
